@@ -20,7 +20,6 @@ from config import  *
 from sys_utils import *
 from vsum_tools import  *
 from vasnet_model import  *
-from transformer.Models import Transformer
 
 def weights_init(m):
     classname = m.__class__.__name__
@@ -158,8 +157,7 @@ class AONet:
         np.random.seed(rnd_seed)
         torch.manual_seed(rnd_seed)
 
-        params = [1024,1024,100,1024,1024,4096,4,3,1024,1024,0.1]
-        self.model = Transformer(*params)
+        self.model = MultiVASNet()
         self.model.eval()
         # self.model.apply(weights_init)
         #print(self.model)

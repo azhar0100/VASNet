@@ -65,16 +65,18 @@ class SelfAttention(nn.Module):
 
 class VASNet(nn.Module):
 
-    def __init__(self):
+    def __init__(self,in_dim = 1024, hid_dim = 1024):
         super(VASNet, self).__init__()
 
-        self.m = 1024 # cnn features size
-        self.hidden_size = 1024
+        # self.m = 1024 # cnn features size
+        self.m = in_dim # cnn features size
+        # self.hidden_size = 1024
+        self.hidden_size = hid_dim
 
         self.att = SelfAttention(input_size=self.m, output_size=self.m)
-        self.ka = nn.Linear(in_features=self.m, out_features=1024)
-        self.kb = nn.Linear(in_features=self.ka.out_features, out_features=1024)
-        self.kc = nn.Linear(in_features=self.kb.out_features, out_features=1024)
+        self.ka = nn.Linear(in_features=self.m,     out_features=self.hidden_size)
+        self.kb = nn.Linear(in_features=self.ka.out_features, out_features=self.hidden_size)
+        self.kc = nn.Linear(in_features=self.kb.out_features, out_features=self.hidden_size)
         self.kd = nn.Linear(in_features=self.ka.out_features, out_features=1)
 
         self.sig = nn.Sigmoid()
@@ -110,6 +112,32 @@ class VASNet(nn.Module):
         y = y.view(1, -1)
 
         return y, att_weights_
+
+class MultiVASNet(nn.Module):
+
+    def __init__(self):
+        super(MultiVASNet,self).__init__()
+        self.attn = nn.MultiheadAttention(1024,4,dropout=0.4)
+        self.drop = nn.Dropout(0.5)
+        self.fc = nn.Sequential(
+                    nn.Linear(1024,1024),
+                    nn.ReLU(),
+                    nn.Dropout(0.5),
+                    nn.LayerNorm(1024),
+                    nn.Linear(1024,1),
+                    nn.Sigmoid()
+                    )
+
+    def forward(self,x,seq_len):
+        m = x.shape[2] # Feature size
+
+        # Place the video frames to the batch dimension to allow for batch arithm. operations.
+        # Assumes input batch size = 1.
+        x = x.expand(*x.shape)
+        y, att_weights_ = self.attn(x,x,x,need_weights=True)
+        y = self.fc(y)
+        return y.view(1,-1),att_weights_
+
 
 
 
