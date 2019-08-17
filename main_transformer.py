@@ -216,7 +216,7 @@ class AONet:
         train_keys = self.train_keys[:]
 
         lr = self.hps.lr[0]
-        i=0
+        j=0
         prev_max_val_fscore = None
         break_time = False
         for epoch in range(self.hps.epochs_max):
@@ -266,11 +266,11 @@ class AONet:
             if prev_max_val_fscore is not None:
                 if max_val_fscore == prev_max_val_fscore:
                     print("Equality reached here")
-                    i += 1
-                    if i > 20:
+                    j += 1
+                    if j > 20:
                         break_time = True
                 else:
-                    i=0
+                    j=0
             prev_max_val_fscore = max_val_fscore
 
             if self.verbose:
