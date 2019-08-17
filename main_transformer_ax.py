@@ -14,13 +14,6 @@ fixed_d = {
                     'splits/summe_aug_splits_quick.json']
 }
 
-d = {
-    n_heads : 4,
-    l2_req : 0.00001,
-    lr_epochs : [0],
-    lr : [0.00005],
-    epochs_max : 500,
-}
 
 print_pkg_versions()
 def eval_s(d):
