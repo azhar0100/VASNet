@@ -44,7 +44,7 @@ def eval_s(d):
         print("\nFinal Results:")
         print_table(results)
 
-    return {"f_score_tvsum": (scores[0], 0.0), "f_score_summe": (scores[1], 0.0) }
+    return {"f_score_tvsum": (scores[0], 0.0), "f_score_summe": (scores[1], 0.0) ,"f_score_sum":(np.mean(scores),0.0)}
 
 best_parameters, values, experiment, model = optimize(
     parameters=[
@@ -71,7 +71,7 @@ best_parameters, values, experiment, model = optimize(
         }
     ],
     experiment_name="test",
-    objective_name="evaluation",
+    objective_name="f_score_sum",
     evaluation_function=eval_s,
     total_trials=50, # Optional.
 )
