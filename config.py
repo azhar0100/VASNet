@@ -53,7 +53,12 @@ class HParameters:
             if val is not None:
                 if hasattr(self, key) and isinstance(getattr(self, key), list):
                     val = val.split()
+                setattr(self, key, val)
 
+    def literal_load_from_args(self,args):
+        for key in args:
+            val = args[key]
+            if val is not None:
                 setattr(self, key, val)
 
     def __str__(self):

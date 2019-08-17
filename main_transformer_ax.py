@@ -22,7 +22,7 @@ def eval_s(d):
     d.update(fixed_d)
     d['lr'] = [d['lr']]
     d['n_heads'] = [2**d['n_heads']]
-    hps.load_from_args(d)
+    hps.literal_load_from_args(d)
 
     print("Parameters:")
     print("----------------------------------------------------------------------")
