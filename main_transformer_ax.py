@@ -1,4 +1,4 @@
-:from main_transformer import *
+from main_transformer import *
 
 import numpy as np
 
