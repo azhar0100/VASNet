@@ -267,7 +267,7 @@ class AONet:
                 if max_val_fscore == prev_max_val_fscore:
                     print("Equality reached here")
                     j += 1
-                    if j > 20:
+                    if j > 5:
                         break_time = True
                 else:
                     j=0
