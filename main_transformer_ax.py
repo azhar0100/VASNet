@@ -69,7 +69,7 @@ best_parameters, values, experiment, model = optimize(
             "type": "range",
             "bounds": [0.0, 1.0],
             "log_scale":True
-        }
+        },
         {
             "name": "epochs_max",
             "type": "range",
