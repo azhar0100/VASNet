@@ -425,6 +425,7 @@ def train(hps):
     # Create a file to collect results from all splits
     f = open(hps.output_dir + '/results.txt', 'wt')
 
+    F_scores = []
     for split_filename in hps.splits:
         dataset_name, dataset_type, splits = parse_splits_filename(split_filename)
 
@@ -438,7 +439,6 @@ def train(hps):
 
         f_avg = 0
         n_folds = len(splits)
-        F_scores = []
         for split_id in range(n_folds):
             ao = AONet(hps)
             ao.initialize()
