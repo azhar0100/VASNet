@@ -280,24 +280,28 @@ class AONet:
         self.model.eval()
         summary = {}
         att_vecs = {}
+        losses = []
         with torch.no_grad():
             for i, key in enumerate(keys):
                 data = self.get_data(key)
                 # seq = self.dataset[key]['features'][...]
                 seq = data['features'][...]
                 seq = torch.from_numpy(seq).unsqueeze(0)
-                target = dataset['gtscore'][...]
+                target = data['gtscore'][...]
                 target = torch.from_numpy(target).unsqueeze(0)
 
                 if self.hps.use_cuda:
                     seq = seq.float().cuda()
 
                 y, att_vec = self.model(seq, seq.shape[1])
+                criterion = nn.MSELoss()
                 validation_loss = criterion(y,target)
-                print("Validation_loss:{}".format(validation_loss))
+                losses.append(validation_loss)
+
                 summary[key] = y[0].detach().cpu().numpy()
                 att_vecs[key] = att_vec.detach().cpu().numpy()
 
+        print("Validation loss:{0:.05f}".format(np.mean(np.array(validation_loss))),end=" ")
         f_score, video_scores = self.eval_summary(summary, keys, metric=self.dataset_name,
                     results_filename=results_filename, att_vecs=att_vecs)
 
