@@ -456,7 +456,7 @@ if __name__ == "__main__":
     parser.add_argument('-t', '--train', action='store_true', help="Train")
     parser.add_argument('-v', '--verbose', action='store_true', help="Prints out more messages")
     parser.add_argument('-o', '--output-dir', type=str, default='data', help="Experiment name")
-    parser.add_argument('-n', '--n-heads', type=str, default='data', help="number of heads in the attention layer")
+    parser.add_argument('-n', '--n-heads', type=int, default='data', help="number of heads in the attention layer")
     args = parser.parse_args()
 
     # MAIN
