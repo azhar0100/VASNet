@@ -305,7 +305,7 @@ class AONet:
                 summary[key] = y[0].detach().cpu().numpy()
                 att_vecs[key] = att_vec.detach().cpu().numpy()
 
-        print("Validation loss:{0:.05f}".format(np.mean(validation_loss)),end=" ")
+        print("Validation loss:{0:.05f}".format(np.mean(validation_loss[:,0])),end=" ")
         f_score, video_scores = self.eval_summary(summary, keys, metric=self.dataset_name,
                     results_filename=results_filename, att_vecs=att_vecs)
 
