@@ -15,6 +15,7 @@ class HParameters:
         self.use_cuda = False
         self.cuda_device = 1
         self.max_summary_length = 0.15
+        self.n_heads = 4
 
         self.l2_req = 0.00001
         self.lr_epochs = [0]
