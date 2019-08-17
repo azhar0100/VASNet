@@ -479,8 +479,11 @@ if __name__ == "__main__":
     else:
         results=[['No', 'Split', 'Mean F-score']]
         for i, split_filename in enumerate(hps.splits):
-            f_score = eval_split(hps, split_filename, data_dir=hps.output_dr
-            results.append([i+1, split_filename, str(round(fcudare * 100false3))+"%"4       print"\nFinaluResultsUse cpu for training')
+            f_score = eval_split(hps, split_filename, data_dir=hps.output_dir)
+            results.append([i+1, split_filename, str(round(f_score * 100.0, 3))+"%"])
+
+        print("\nFinal Results:")
+        print_table(results)
 
 
-    sys.exit(True)
+    sys.exit(0)
