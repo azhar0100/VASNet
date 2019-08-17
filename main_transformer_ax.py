@@ -21,6 +21,7 @@ def eval_s(d):
 
     d.update(fixed_d)
     d['lr'] = [d['lr']]
+    d['n_heads'] = [2**d['n_heads']]
     hps.load_from_args(d)
 
     print("Parameters:")
@@ -47,8 +48,8 @@ best_parameters, values, experiment, model = optimize(
     parameters=[
         {
             "name": "n_heads",
-            "type": "choices",
-            "choices": [2, 4, 8],
+            "type": "range",
+            "range": [0,3],
             "value_type": "int",  # Optional, defaults to inference from type of "bounds".
         },
         {
