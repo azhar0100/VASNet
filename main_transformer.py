@@ -282,6 +282,9 @@ class AONet:
         att_vecs = {}
         losses = []
         with torch.no_grad():
+            criterion = nn.MSELoss()
+            if self.hps.use_cuda:
+                criterion = criterion.cuda()
             for i, key in enumerate(keys):
                 data = self.get_data(key)
                 # seq = self.dataset[key]['features'][...]
@@ -294,7 +297,7 @@ class AONet:
                     seq = seq.float().cuda()
 
                 y, att_vec = self.model(seq, seq.shape[1])
-                criterion = nn.MSELoss()
+
                 validation_loss = criterion(y,target)
                 losses.append(validation_loss)
 
