@@ -19,6 +19,8 @@ print_pkg_versions()
 def eval_s(d):
     hps = HParameters()
 
+    print("Checking {} now".format(d))
+
     d.update(fixed_d)
     d['lr'] = [d['lr']]
     d['n_heads'] = 2**d['n_heads']
