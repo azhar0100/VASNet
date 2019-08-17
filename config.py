@@ -12,7 +12,7 @@ class HParameters:
 
     def __init__(self):
         self.verbose = False
-        self.use_cuda = True
+        self.use_cuda = False
         self.cuda_device = 1
         self.max_summary_length = 0.15
 
@@ -20,7 +20,7 @@ class HParameters:
         self.lr_epochs = [0]
         self.lr = [0.00005]
 
-        self.epochs_max = 300
+        self.epochs_max = 500
         self.train_batch_size = 1
 
         self.output_dir = 'ex-10'
