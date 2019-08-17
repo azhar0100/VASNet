@@ -12,7 +12,7 @@ class HParameters:
 
     def __init__(self):
         self.verbose = False
-        self.use_cuda = False
+        self.use_cuda = True
         self.cuda_device = 1
         self.max_summary_length = 0.15
         self.n_heads = 4

@@ -456,13 +456,19 @@ if __name__ == "__main__":
     parser.add_argument('-t', '--train', action='store_true', help="Train")
     parser.add_argument('-v', '--verbose', action='store_true', help="Prints out more messages")
     parser.add_argument('-o', '--output-dir', type=str, default='data', help="Experiment name")
-    parser.add_argument('-n', '--n-heads', type=int, default='data', help="number of heads in the attention layer")
+    parser.add_argument('-n', '--n-heads', type=int, default=4, help="number of heads in the attention layer")
+    parser.add_argument('-u', '--use-cpu', action='store_True', default=False, help="Specify option to use cpu for training")
     args = parser.parse_args()
 
     # MAIN
     #======================
     hps = HParameters()
-    hps.load_from_args(args.__dict__)
+    d = args.__dict__
+    if d['use_cpu']:
+        d['use_cuda'] = False
+    else:
+        d['use_cuda'] = True
+    hps.load_from_args(d)
 
     print("Parameters:")
     print("----------------------------------------------------------------------")
@@ -473,11 +479,8 @@ if __name__ == "__main__":
     else:
         results=[['No', 'Split', 'Mean F-score']]
         for i, split_filename in enumerate(hps.splits):
-            f_score = eval_split(hps, split_filename, data_dir=hps.output_dir)
-            results.append([i+1, split_filename, str(round(f_score * 100.0, 3))+"%"])
-
-        print("\nFinal Results:")
-        print_table(results)
+            f_score = eval_split(hps, split_filename, data_dir=hps.output_dr
+            results.append([i+1, split_filename, str(round(fcudare * 100false3))+"%"4       print"\nFinaluResultsUse cpu for training')
 
 
-    sys.exit(0)
+    sys.exit(True)
