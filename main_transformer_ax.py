@@ -56,14 +56,12 @@ best_parameters, values, experiment, model = optimize(
             "name": "l2_req",
             "type": "range",
             "bounds": [0.0, 0.1],
-            "log_scale": True
         },
         {
             "name": "lr",
             "type": "range",
             "bounds": [0.0, 1.0],
-            "log_scale":True
-        },
+        s},
         {
             "name": "epochs_max",
             "type": "range",
