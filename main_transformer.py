@@ -266,7 +266,7 @@ class AONet:
             if prev_max_val_fscore is not None:
                 if max_val_fscore == prev_max_val_fscore:
                     j += 1
-                    if j > 5:
+                    if j > 10:
                         break_time = True
                 else:
                     j=0
