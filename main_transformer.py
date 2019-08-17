@@ -264,7 +264,7 @@ class AONet:
             print('   Test F-score avg/max: {0:0.5}/{1:0.5}'.format(val_fscore, max_val_fscore))
 
             if prev_max_val_fscore is not None:
-                if max_val_fscore == prev_max_val_fscore
+                if max_val_fscore == prev_max_val_fscore:
                     i += 1
                     if i > 20:
                         break_time = True
