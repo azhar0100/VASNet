@@ -438,6 +438,7 @@ def train(hps):
 
         f_avg = 0
         n_folds = len(splits)
+        F_scores = []
         for split_id in range(n_folds):
             ao = AONet(hps)
             ao.initialize()
@@ -463,6 +464,7 @@ def train(hps):
             os.system('rm -rf ' + hps.output_dir + '/models_temp/' + log_dir)
 
             print("Split: {0:}   Best F-score: {1:0.5f}   Model: {2:}".format(split_filename, fscore, log_file))
+            F_scores.append(fscore)
 
         # Write average F-score for all splits to the results.txt file
         f_avg /= n_folds
@@ -470,6 +472,7 @@ def train(hps):
         f.flush()
 
     f.close()
+    return F_scores
 
 
 if __name__ == "__main__":

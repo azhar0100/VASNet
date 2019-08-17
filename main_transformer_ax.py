@@ -33,7 +33,7 @@ def eval_s(d):
     scores = []
 
     if hps.train:
-        train(hps)
+        scores = train(hps)
     else:
         results=[['No', 'Split', 'Mean F-score']]
         for i, split_filename in enumerate(hps.splits):
