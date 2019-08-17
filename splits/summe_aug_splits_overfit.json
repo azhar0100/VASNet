@@ -1,0 +1,26 @@
+[
+    {
+        "train_keys": [
+            "eccv16_dataset_youtube_google_pool5/video_28",
+            "eccv16_dataset_tvsum_google_pool5/video_36",
+            "eccv16_dataset_tvsum_google_pool5/video_21",
+            "eccv16_dataset_ovp_google_pool5/video_16",
+            "eccv16_dataset_youtube_google_pool5/video_20",
+            "eccv16_dataset_tvsum_google_pool5/video_43",
+            "eccv16_dataset_ovp_google_pool5/video_31",
+            "eccv16_dataset_youtube_google_pool5/video_32",
+            "eccv16_dataset_summe_google_pool5/video_22",
+            "eccv16_dataset_summe_google_pool5/video_18",
+            "eccv16_dataset_summe_google_pool5/video_14",
+            "eccv16_dataset_summe_google_pool5/video_25",
+            "eccv16_dataset_summe_google_pool5/video_13"
+      ],
+        "test_keys": [
+            "eccv16_dataset_summe_google_pool5/video_22",
+            "eccv16_dataset_summe_google_pool5/video_18",
+            "eccv16_dataset_summe_google_pool5/video_14",
+            "eccv16_dataset_summe_google_pool5/video_25",
+            "eccv16_dataset_summe_google_pool5/video_13"
+        ]
+    }
+]
