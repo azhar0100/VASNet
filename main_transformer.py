@@ -286,11 +286,15 @@ class AONet:
                 # seq = self.dataset[key]['features'][...]
                 seq = data['features'][...]
                 seq = torch.from_numpy(seq).unsqueeze(0)
+                target = dataset['gtscore'][...]
+                target = torch.from_numpy(target).unsqueeze(0)
 
                 if self.hps.use_cuda:
                     seq = seq.float().cuda()
 
                 y, att_vec = self.model(seq, seq.shape[1])
+                validation_loss = criterion(y,target)
+                print("Validation_loss:{}".format(validation_loss))
                 summary[key] = y[0].detach().cpu().numpy()
                 att_vecs[key] = att_vec.detach().cpu().numpy()
 
