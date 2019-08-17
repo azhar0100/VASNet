@@ -82,4 +82,4 @@ best_parameters, values, experiment, model = optimize(
     total_trials=50, # Optional.
 )
 
-pickle.dump([best_parameters, values, experiment, model], open("saved_optim"), protocol=None, *, fix_imports=True)
+pickle.dump([best_parameters, values, experiment, model], open("saved_optim"), protocol=None, fix_imports=True)
