@@ -271,7 +271,6 @@ class AONet:
                 else:
                     i=0
             prev_max_val_fscore = max_val_fscore
-            i = 0
 
             if self.verbose:
                 video_scores = [["No", "Video", "F-score"]] + video_scores
