@@ -295,6 +295,7 @@ class AONet:
 
                 if self.hps.use_cuda:
                     seq = seq.float().cuda()
+                    target = target.float().cuda()
 
                 y, att_vec = self.model(seq, seq.shape[1])
 
