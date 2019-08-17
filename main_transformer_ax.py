@@ -49,7 +49,7 @@ best_parameters, values, experiment, model = optimize(
         {
             "name": "n_heads",
             "type": "range",
-            "range": [0,3],
+            "bounds": [0,3],
             "value_type": "int",  # Optional, defaults to inference from type of "bounds".
         },
         {
