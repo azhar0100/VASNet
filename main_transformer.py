@@ -216,6 +216,9 @@ class AONet:
         train_keys = self.train_keys[:]
 
         lr = self.hps.lr[0]
+        i=0
+        prev_max_val_fscore = None
+        break_time = False
         for epoch in range(self.hps.epochs_max):
 
             print("Epoch: {0:6}".format(str(epoch)+"/"+str(self.hps.epochs_max)), end='')
@@ -260,6 +263,17 @@ class AONet:
             print("   Train loss: {0:.05f}".format(np.mean(avg_loss[:, 0])), end='')
             print('   Test F-score avg/max: {0:0.5}/{1:0.5}'.format(val_fscore, max_val_fscore))
 
+            if prev_max_val_fscore is not None:
+                if max_val_fscore == prev_max_val_fscore
+                    i += 1
+                    if i > 20:
+                        break_time = True
+                else:
+                    i=0
+            else:
+                prev_max_val_fscore = max_val_fscore
+                i = 0
+
             if self.verbose:
                 video_scores = [["No", "Video", "F-score"]] + video_scores
                 print_table(video_scores, cell_width=[3,40,8])
@@ -271,6 +285,8 @@ class AONet:
             os.makedirs(path, exist_ok=True)
             filename = str(epoch)+'_'+str(round(val_fscore*100,3))+'.pth.tar'
             torch.save(self.model.state_dict(), os.path.join(path, filename))
+            if break_time:
+                break
 
         return max_val_fscore, max_val_fscore_epoch
 
