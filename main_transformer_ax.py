@@ -1,7 +1,7 @@
 from main_transformer import *
 
 import numpy as np
-
+import pickles
 from ax.plot.contour import plot_contour
 from ax.plot.trace import optimization_trace_single_method
 from ax.service.managed_loop import optimize
@@ -76,4 +76,4 @@ best_parameters, values, experiment, model = optimize(
     total_trials=50, # Optional.
 )
 
-pickle.dump([best_parameters, values, experiment, model], open("saved_optim"), protocol=None, fix_imports=True)
+pickle.dump([best_parameters, values, experiment, model], open("saved_optim",'wb'), protocol=None, fix_imports=True)
