@@ -158,6 +158,12 @@ class AONet:
         torch.manual_seed(rnd_seed)
 
         self.model = MultiVASNet(self.hps.n_heads)
+        if torch.cuda.device_count() > 1:
+          print("Let's use", torch.cuda.device_count(), "GPUs!")
+          # dim = 0 [30, xxx] -> [10, ...], [10, ...], [10, ...] on 3 GPUs
+          self.model = nn.DataParallel(self.model)
+
+        self.model.to(device)
         self.model.eval()
         # self.model.apply(weights_init)
         #print(self.model)
