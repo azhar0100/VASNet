@@ -15,11 +15,12 @@ class HParameters:
         self.use_cuda = True
         self.cuda_device = 1
         self.max_summary_length = 0.15
-        self.n_heads = 4
+        self.n_heads = 8
         self.crude_early_stopping = False
         self.crude_early_stopping_n = 25
 
-        self.l2_req = 0.00001
+        # self.l2_req = 0.00001
+        self.l2_req = 4.192296532832617e-09
         self.lr_epochs = [0]
         self.lr = [0.00005]
 
@@ -27,7 +28,7 @@ class HParameters:
         self.train_batch_size = 1
         self.train = True
 
-        self.output_dir = 'ex-10'
+        self.output_dir = 'ex-complete'
 
         self.root = ''
         self.datasets=['datasets/eccv16_dataset_summe_google_pool5.h5',
