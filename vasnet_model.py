@@ -121,12 +121,12 @@ class MultiVASNet(nn.Module):
         self.drop = nn.Dropout(0.5)
         self.fc = nn.Sequential(
                     nn.Dropout(0.5),
-                    nn.Linear(1024,1024),
+                    nn.Linear(1024,512),
                     nn.ReLU(),
                     nn.Dropout(0.5),
-                    nn.LayerNorm(1024),
+                    nn.LayerNorm(512),
                     nn.Dropout(0.5),
-                    nn.Linear(1024,1),
+                    nn.Linear(512,1),
                     nn.Sigmoid()
                     )
 
@@ -137,6 +137,7 @@ class MultiVASNet(nn.Module):
         # Assumes input batch size = 1.
         x = x.expand(*x.shape)
         y, att_weights_ = self.attn(x,x,x,need_weights=True)
+        y = y + x
         y = self.fc(y)
         return y.view(1,-1),att_weights_
 

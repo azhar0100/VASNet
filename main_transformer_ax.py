@@ -75,7 +75,7 @@ best_parameters, values, experiment, model = optimize(
     experiment_name="test",
     objective_name="f_score_sum",
     evaluation_function=eval_s,
-    total_trials=1, # Optional.
+    total_trials=100, # Optional.
 )
 
 torch.save(model,'saved_optim.pth.tar')
