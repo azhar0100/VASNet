@@ -57,12 +57,14 @@ best_parameters, values, experiment, model = optimize(
         {
             "name": "l2_req",
             "type": "range",
-            "bounds": [0.0, 0.001],
+            "bounds": [1e-10, 0.001],
+            "log_scale": True
         },
         {
             "name": "lr",
             "type": "range",
-            "bounds": [0.0, 0.001],
+            "bounds": [1e-10, 0.001],
+            "log_scale": True
         },
         {
             "name": "epochs_max",
@@ -73,7 +75,8 @@ best_parameters, values, experiment, model = optimize(
     experiment_name="test",
     objective_name="f_score_sum",
     evaluation_function=eval_s,
-    total_trials=50, # Optional.
+    total_trials=1, # Optional.
 )
 
-pickle.dump([best_parameters, values, experiment, model], open("saved_optim",'wb'), protocol=None, fix_imports=True)
+torch.save(model,'saved_optim.pth.tar')
+pickle.dump([best_parameters, values, experiment], open("saved_optim",'wb'), protocol=None, fix_imports=True)
