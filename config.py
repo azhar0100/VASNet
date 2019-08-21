@@ -22,7 +22,7 @@ class HParameters:
         # self.l2_req = 0.00001
         self.l2_req = 4.192296532832617e-09
         self.lr_epochs = [0]
-        self.lr = [0.00005]
+        self.lr = [0.001]
 
         self.epochs_max = 500
         self.train_batch_size = 1
