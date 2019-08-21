@@ -74,7 +74,8 @@ if __name__ == "__main__":
         ],
         experiment_name="test",
         objective_name="f_score_sum",
-        evaluation_function=eval_s
+        evaluation_function=eval_s,
+        total_trials = 50
     )
 
     # torch.save(model,'saved_optim.pth.tar')
