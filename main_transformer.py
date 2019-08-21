@@ -266,7 +266,7 @@ class AONet:
             if prev_max_val_fscore is not None:
                 if max_val_fscore == prev_max_val_fscore:
                     j += 1
-                    if j > 10:
+                    if j > self.crude_early_stopping_n:
                         break_time = True
                 else:
                     j=0
@@ -283,7 +283,7 @@ class AONet:
             os.makedirs(path, exist_ok=True)
             filename = str(epoch)+'_'+str(round(val_fscore*100,3))+'.pth.tar'
             torch.save(self.model.state_dict(), os.path.join(path, filename))
-            if break_time:
+            if break_time and self.hps.crude_early_stopping:
                 break
 
         return max_val_fscore, max_val_fscore_epoch
