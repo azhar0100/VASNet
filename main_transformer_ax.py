@@ -78,4 +78,4 @@ if __name__ == "__main__":
     )
 
     # torch.save(model,'saved_optim.pth.tar')
-    pickle.dump([best_parameters, values, experiment,model.cpu()], open("saved_optim",'wb'), protocol=None, fix_imports=True)
+    pickle.dump([best_parameters, values, experiment], open("saved_optim",'wb'), protocol=None, fix_imports=True)
