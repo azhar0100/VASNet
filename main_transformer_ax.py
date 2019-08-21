@@ -45,38 +45,37 @@ def eval_s(d):
         print_table(results)
 
     return {"f_score_tvsum": (scores[0], 0.0), "f_score_summe": (scores[1], 0.0) ,"f_score_sum":(np.mean(scores),0.0)}
+if __name__ == "__main__":
+    best_parameters, values, experiment, model = optimize(
+        parameters=[
+            {
+                "name": "n_heads",
+                "type": "range",
+                "bounds": [0,3],
+                "value_type": "int",  # Optional, defaults to inference from type of "bounds".
+            },
+            {
+                "name": "l2_req",
+                "type": "range",
+                "bounds": [1e-10, 0.001],
+                "log_scale": True
+            },
+            {
+                "name": "lr",
+                "type": "range",
+                "bounds": [1e-10, 0.001],
+                "log_scale": True
+            },
+            {
+                "name": "epochs_max",
+                "type": "range",
+                "bounds": [0, 500],
+            }
+        ],
+        experiment_name="test",
+        objective_name="f_score_sum",
+        evaluation_function=eval_s
+    )
 
-best_parameters, values, experiment, model = optimize(
-    parameters=[
-        {
-            "name": "n_heads",
-            "type": "range",
-            "bounds": [0,3],
-            "value_type": "int",  # Optional, defaults to inference from type of "bounds".
-        },
-        {
-            "name": "l2_req",
-            "type": "range",
-            "bounds": [1e-10, 0.001],
-            "log_scale": True
-        },
-        {
-            "name": "lr",
-            "type": "range",
-            "bounds": [1e-10, 0.001],
-            "log_scale": True
-        },
-        {
-            "name": "epochs_max",
-            "type": "range",
-            "bounds": [0, 500],
-        }
-    ],
-    experiment_name="test",
-    objective_name="f_score_sum",
-    evaluation_function=eval_s,
-    total_trials=100, # Optional.
-)
-
-torch.save(model,'saved_optim.pth.tar')
-pickle.dump([best_parameters, values, experiment], open("saved_optim",'wb'), protocol=None, fix_imports=True)
+    # torch.save(model,'saved_optim.pth.tar')
+    pickle.dump([best_parameters, values, experiment,model.cpu()], open("saved_optim",'wb'), protocol=None, fix_imports=True)
