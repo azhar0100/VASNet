@@ -266,7 +266,7 @@ class AONet:
             if prev_max_val_fscore is not None:
                 if max_val_fscore == prev_max_val_fscore:
                     j += 1
-                    if j > self.crude_early_stopping_n:
+                    if j > self.hps.crude_early_stopping_n:
                         break_time = True
                 else:
                     j=0
