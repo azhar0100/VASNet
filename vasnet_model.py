@@ -144,7 +144,7 @@ class MultiVASNet(nn.Module):
 
 class CatMultiVASNet(nn.Module):
     def __init__(self,n_heads=4):
-        super(MultiVASNet,self).__init__()
+        super(CatMultiVASNet,self).__init__()
         self.attn = nn.MultiheadAttention(1024,n_heads,dropout=0.4)
         self.drop = nn.Dropout(0.5)
         self.fc = nn.Sequential(
