@@ -114,6 +114,7 @@ class VASNet(nn.Module):
         return y, att_weights_
 
 class MultiVASNet(nn.Module):
+    "This Model uses the default torch attention layers instead of using self made layers"
 
     def __init__(self,n_heads=4):
         super(MultiVASNet,self).__init__()
