@@ -163,6 +163,7 @@ class CatMultiVASNet(MultiVASNet):
             # Assumes input batch size = 1.
             x = x.expand(*x.shape)
             y, att_weights_ = self.attn(x,x,x,need_weights=True)
+            print(y.shape)
             y = torch.cat((y,x))
             y = self.fc(y)
             return y.view(1,-1),att_weights_
