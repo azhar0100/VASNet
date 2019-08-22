@@ -142,9 +142,11 @@ class MultiVASNet(nn.Module):
         y = self.fc(y)
         return y.view(1,-1),att_weights_
 
-class CatMultiVASNet(MultiVASNet):
+class CatMultiVASNet(nn.Module):
     def __init__(self,n_heads=4):
         super(MultiVASNet,self).__init__()
+        self.attn = nn.MultiheadAttention(1024,n_heads,dropout=0.4)
+        self.drop = nn.Dropout(0.5)
         self.fc = nn.Sequential(
                             nn.Dropout(0.5),
                             nn.Linear(2048,512),
