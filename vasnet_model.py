@@ -142,6 +142,30 @@ class MultiVASNet(nn.Module):
         y = self.fc(y)
         return y.view(1,-1),att_weights_
 
+def CatMultiVASNet(MultiVASNet):
+    def __init__(self,n_heads=4):
+        super(MultiVASNet,self).__init__()
+        self.fc = nn.Sequential(
+                            nn.Dropout(0.5),
+                            nn.Linear(2048,512),
+                            nn.ReLU(),
+                            nn.Dropout(0.5),
+                            nn.LayerNorm(512),
+                            nn.Dropout(0.5),
+                            nn.Linear(512,1),
+                            nn.Sigmoid()
+                            )
+
+        def forward(self,x,seq_len):
+            m = x.shape[2] # Feature size
+
+            # Place the video frames to the batch dimension to allow for batch arithm. operations.
+            # Assumes input batch size = 1.
+            x = x.expand(*x.shape)
+            y, att_weights_ = self.attn(x,x,x,need_weights=True)
+            y = torch.cat((y,x))
+            y = self.fc(y)
+            return y.view(1,-1),att_weights_
 
 
 
