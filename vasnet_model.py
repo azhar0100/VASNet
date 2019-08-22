@@ -158,17 +158,17 @@ class CatMultiVASNet(nn.Module):
                             nn.Sigmoid()
                             )
 
-        def forward(self,x,seq_len):
-            m = x.shape[2] # Feature size
+    def forward(self,x,seq_len):
+        m = x.shape[2] # Feature size
 
-            # Place the video frames to the batch dimension to allow for batch arithm. operations.
-            # Assumes input batch size = 1.
-            x = x.expand(*x.shape)
-            y, att_weights_ = self.attn(x,x,x,need_weights=True)
-            print(y.shape)
-            y = torch.cat((y,x))
-            y = self.fc(y)
-            return y.view(1,-1),att_weights_
+        # Place the video frames to the batch dimension to allow for batch arithm. operations.
+        # Assumes input batch size = 1.
+        x = x.expand(*x.shape)
+        y, att_weights_ = self.attn(x,x,x,need_weights=True)
+        print(y.shape)
+        y = torch.cat((y,x))
+        y = self.fc(y)
+        return y.view(1,-1),att_weights_
 
 
 
