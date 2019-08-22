@@ -142,7 +142,7 @@ class MultiVASNet(nn.Module):
         y = self.fc(y)
         return y.view(1,-1),att_weights_
 
-def CatMultiVASNet(MultiVASNet):
+class CatMultiVASNet(MultiVASNet):
     def __init__(self,n_heads=4):
         super(MultiVASNet,self).__init__()
         self.fc = nn.Sequential(
