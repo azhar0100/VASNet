@@ -121,7 +121,7 @@ class MultiVASNet(nn.Module):
         self.attn = nn.MultiheadAttention(1024,n_heads,dropout=0.4)
         self.drop = nn.Dropout(0.5)
         self.fc = nn.Sequential(
-                    nn.LayerNorm(1024)
+                    nn.LayerNorm(1024),
                     nn.Dropout(0.5),
                     nn.Linear(1024,512),
                     nn.ReLU(),
