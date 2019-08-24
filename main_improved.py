@@ -292,7 +292,7 @@ class AONet:
             if break_time and self.hps.crude_early_stopping:
                 break
 
-        return max_val_fscore, max_val_fscore_epochs
+        return max_val_fscore, max_val_fscore_epoch
 
 
     def eval(self, keys, results_filename=None):
