@@ -260,7 +260,7 @@ class AONet:
 
             # Evaluate test dataset
             val_fscore, video_scores,validation_loss = self.eval(self.test_keys)
-            scheduler.step(validation_loss)
+            self.scheduler.step(validation_loss)
             if max_val_fscore < val_fscore:
                 max_val_fscore = val_fscore
                 max_val_fscore_epoch = epoch
