@@ -159,9 +159,9 @@ class AONet:
         if self.hps.model_type == 'original-attention':
             self.model = VASNet()
         elif self.hps.model_type == 'base-attention':
-            self.model = MultiheadAttention(self.hps.n_heads)
+            self.model = MultiVASNet(self.hps.n_heads)
         elif self.hps.model_type == 'concatenated-attention':
-            self.model = CatMultiheadAttention(self.hps.n_heads)
+            self.model = CatMultiVASNet(self.hps.n_heads)
         self.model.eval()
         # self.model.apply(weights_init)
         #print(self.model)
