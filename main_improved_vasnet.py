@@ -208,6 +208,7 @@ class AONet:
 
         parameters = filter(lambda p: p.requires_grad, self.model.parameters())
         self.optimizer = torch.optim.Adam(parameters, lr=self.hps.lr[0], weight_decay=self.hps.l2_req)
+        self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer)
 
         print("Starting training...")
 
@@ -254,7 +255,8 @@ class AONet:
                 avg_loss.append([float(loss), float(loss_att)])
 
             # Evaluate test dataset
-            val_fscore, video_scores = self.eval(self.test_keys)
+            val_fscore, video_scores,validation_loss = self.eval(self.test_keys)
+            scheduler.step(validation_loss)
             if max_val_fscore < val_fscore:
                 max_val_fscore = val_fscore
                 max_val_fscore_epoch = epoch
@@ -286,7 +288,7 @@ class AONet:
             if break_time and self.hps.crude_early_stopping:
                 break
 
-        return max_val_fscore, max_val_fscore_epoch
+        return max_val_fscore, max_val_fscore_epochs
 
 
     def eval(self, keys, results_filename=None):
@@ -323,7 +325,7 @@ class AONet:
         f_score, video_scores = self.eval_summary(summary, keys, metric=self.dataset_name,
                     results_filename=results_filename, att_vecs=att_vecs)
 
-        return f_score, video_scores
+        return f_score, video_scores, validation_loss
 
 
     def eval_summary(self, machine_summary_activations, test_keys, results_filename=None, metric='tvsum', att_vecs=None):
