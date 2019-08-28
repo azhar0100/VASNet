@@ -267,7 +267,7 @@ class AONet:
 
                 avg_loss.append([float(loss), float(loss_att)])
 
-            writer.add_scalar(self.hps.output_dir + '/Train_loss', avg_loss[-1], i)
+            writer.add_scalar(self.hps.output_dir + '/Train_loss', avg_loss[-1][0], i)
             # Evaluate test dataset
             val_fscore, video_scores,validation_loss = self.eval(self.test_keys)
             writer.add_scalar(self.hps.output_dir + '/Valid_loss', validation_loss, i)
