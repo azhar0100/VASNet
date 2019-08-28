@@ -162,7 +162,7 @@ class MultiVASNetWithPageRank(nn.Module):
                     nn.Sigmoid()
                     )
 
-    def pagerank(self,M,d=0.25,eps=1e-4):
+    def pagerank(self,M,d=0.25,eps=1e-2):
         N = M.shape[1]
         v = torch.randn(N, 1).cuda()
         v = v / torch.norm(v, 1)
