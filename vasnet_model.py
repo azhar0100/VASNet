@@ -166,7 +166,7 @@ class MultiVASNetWithPageRank(nn.Module):
         N = M.shape[1]
         v = torch.randn(N, 1)
         v = v / torch.norm(v, 1)
-        last_v = torch.ones((N, 1), dtype=np.float32) * 100
+        last_v = torch.ones((N, 1)) * 100
 
         while torch.norm(v - last_v, 2) > eps:
             last_v = v
