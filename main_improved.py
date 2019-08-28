@@ -494,6 +494,7 @@ if __name__ == "__main__":
     parser.add_argument('-n', '--n-heads', type=int, default=4, help="number of heads in the attention layer")
     parser.add_argument('-u', '--use-cpu', action='store_true', default=False, help="Specify option to use cpu for training")
     parser.add_argument('-m', '--model-type', default='base-attention',choices=['base-attention','concatenated-attention'])
+    parser.add_argument('-e', '--crude-early-stopping',action='store_false')
     args = parser.parse_args()
 
     # MAIN
