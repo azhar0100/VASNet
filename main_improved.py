@@ -159,7 +159,7 @@ class AONet:
         if self.hps.model_type == 'original-attention':
             self.model = VASNet()
         elif self.hps.model_type == 'base-attention':
-            self.model = MultiVASNet(self.hps.n_heads)
+            self.model = MultiVASNet(self.hps.n_heads,self.hps.use_extra_linear)
         elif self.hps.model_type == 'concatenated-attention':
             self.model = CatMultiVASNet(self.hps.n_heads)
         elif self.hps.model_type == 'pagerank':
@@ -504,6 +504,7 @@ if __name__ == "__main__":
     parser.add_argument('-e', '--crude-early-stopping',action='store_false')
     parser.add_argument('-c', '--cuda-device', type=int, default=1)
     parser.add_argument('-l', '--learning-rate-scheduling', action='store_false')
+    parser.add_argument('--use-extra-linear', action='store_true')
 
     args = parser.parse_args()
 

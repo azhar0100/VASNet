@@ -117,7 +117,7 @@ class VASNet(nn.Module):
 class MultiVASNet(nn.Module):
     "This Model uses the default torch attention layers instead of using self made layers"
 
-    def __init__(self,n_heads=4,second_layer_dim=1024,use_extra_linear = False):
+    def __init__(self,n_heads=4,second_layer_dim=1024,use_extra_linear = True):
         super(MultiVASNet,self).__init__()
         self.attn = nn.MultiheadAttention(1024,n_heads,dropout=0.4)
         self.drop = nn.Dropout(0.5)

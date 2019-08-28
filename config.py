@@ -19,6 +19,7 @@ class HParameters:
         self.crude_early_stopping = False
         self.crude_early_stopping_n = 60
         self.learning_rate_scheduling = False
+        self.use_extra_linear = False
 
         self.l2_req = 0.00001
         # self.l2_req = 4.192296532832617e-09
