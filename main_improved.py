@@ -162,6 +162,8 @@ class AONet:
             self.model = MultiVASNet(self.hps.n_heads)
         elif self.hps.model_type == 'concatenated-attention':
             self.model = CatMultiVASNet(self.hps.n_heads)
+        elif self.hps.model_type == 'pagerank':
+            self.model = MultiVASNetWithPageRank(self.hps.n_heads)
         self.model.eval()
         # self.model.apply(weights_init)
         #print(self.model)
@@ -493,7 +495,7 @@ if __name__ == "__main__":
     parser.add_argument('-o', '--output-dir', type=str, default='data', help="Experiment name")
     parser.add_argument('-n', '--n-heads', type=int, default=4, help="number of heads in the attention layer")
     parser.add_argument('-u', '--use-cpu', action='store_true', default=False, help="Specify option to use cpu for training")
-    parser.add_argument('-m', '--model-type', default='base-attention',choices=['base-attention','concatenated-attention'])
+    parser.add_argument('-m', '--model-type', default='base-attention',choices=['base-attention','concatenated-attention','pagerank'])
     parser.add_argument('-e', '--crude-early-stopping',action='store_false')
     args = parser.parse_args()
 
