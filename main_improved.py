@@ -21,7 +21,7 @@ from config import  *
 from sys_utils import *
 from vsum_tools import  *
 from vasnet_model import  *
-
+writer = SummaryWriter()
 
 
 def weights_init(m):
@@ -500,6 +500,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser("PyTorch implementation of paper \"Summarizing Videos with Attention\"")
     parser.add_argument('-r', '--root', type=str, default='', help="Project root directory")
     parser.add_argument('-d', '--datasets', type=str, help="Path to a comma separated list of h5 datasets")
+
     parser.add_argument('-s', '--splits', type=str, help="Comma separated list of split files.")
     parser.add_argument('-t', '--train', action='store_true', help="Train")
     parser.add_argument('-v', '--verbose', action='store_true', help="Prints out more messages")
@@ -539,6 +540,5 @@ if __name__ == "__main__":
         print("\nFinal Results:")
         print_table(results)
 
-    writer = SummaryWriter()
     writer.close()
     sys.exit(0)
