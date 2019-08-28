@@ -502,7 +502,7 @@ if __name__ == "__main__":
     parser.add_argument('-m', '--model-type', default='base-attention',choices=['base-attention','concatenated-attention','pagerank'])
     parser.add_argument('-e', '--crude-early-stopping',action='store_false')
     parser.add_argument('-c', '--cuda-device', type=int, default=1)
-    parser.add_argument('-s', '--learning-rate-scheduling', action='store_false')
+    parser.add_argument('-l', '--learning-rate-scheduling', action='store_false')
 
     args = parser.parse_args()
 
