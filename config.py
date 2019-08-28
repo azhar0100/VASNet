@@ -17,7 +17,7 @@ class HParameters:
         self.max_summary_length = 0.15
         self.n_heads = 4
         self.crude_early_stopping = True
-        self.crude_early_stopping_n = 25
+        self.crude_early_stopping_n = 60
 
         # self.l2_req = 0.00001
         self.l2_req = 4.192296532832617e-09
