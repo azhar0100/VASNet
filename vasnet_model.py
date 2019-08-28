@@ -145,7 +145,7 @@ class MultiVASNet(nn.Module):
         y, att_weights_ = self.attn(x,x,x,need_weights=True)
         y = y + x
         if self.use_extra_linear:
-            y = self.extra_linear(self.fc(y))
+            y = (self.fc(self.extra_linear(y)))
         else:
             y = self.fc(y)
         return y.view(1,-1),att_weights_
