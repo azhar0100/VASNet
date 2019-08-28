@@ -145,7 +145,7 @@ class MultiVASNet(nn.Module):
 
 class MultiVASNetWithPageRank(nn.Module):
     def __init__(self,n_heads=4,second_layer_dim=1024):
-        super(MultiVASNet,self).__init__()
+        super().__init__()
         second_layer_dim += 1
         self.attn = nn.MultiheadAttention(1024,n_heads,dropout=0.4)
         self.drop = nn.Dropout(0.5)
