@@ -151,9 +151,9 @@ class MultiVASNetWithPageRank(nn.Module):
         self.attn = nn.MultiheadAttention(1024,n_heads,dropout=0.4)
         self.drop = nn.Dropout(0.5)
         self.fc = nn.Sequential(
-                    nn.LayerNorm(1024),
+                    nn.LayerNorm(1024+1),
                     nn.Dropout(0.5),
-                    nn.Linear(1024,second_layer_dim),
+                    nn.Linear(1024+1,second_layer_dim),
                     nn.ReLU(),
                     nn.Dropout(0.5),
                     nn.LayerNorm(second_layer_dim),
@@ -182,6 +182,7 @@ class MultiVASNetWithPageRank(nn.Module):
         y, att_weights_ = self.attn(x,x,x,need_weights=True)
         p = self.pagerank(att_weights_).permute(1,0,2)
         y = y + x
+        y = torch.cat((p,y),2)
         y = self.fc(y)
         return y.view(1,-1),att_weights_
 
