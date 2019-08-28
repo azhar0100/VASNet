@@ -164,7 +164,7 @@ class MultiVASNetWithPageRank(nn.Module):
 
     def pagerank(self,M,d=0.25,v_quadratic_error=1e-4):
         N = M.shape[1]
-        v = np.random.rand(N, 1)
+        v = torch.randn(N, 1)
         v = v / torch.norm(v, 1)
         last_v = torch.ones((N, 1), dtype=np.float32) * 100
 
