@@ -117,10 +117,13 @@ class VASNet(nn.Module):
 class MultiVASNet(nn.Module):
     "This Model uses the default torch attention layers instead of using self made layers"
 
-    def __init__(self,n_heads=4,second_layer_dim=1024):
+    def __init__(self,n_heads=4,second_layer_dim=1024,use_extra_linear = False):
         super(MultiVASNet,self).__init__()
         self.attn = nn.MultiheadAttention(1024,n_heads,dropout=0.4)
         self.drop = nn.Dropout(0.5)
+        self.use_extra_linear = use_extra_linear
+        if use_extra_linear:
+            self.extra_linear = nn.Linear(1024,1024,bias=False)
         self.fc = nn.Sequential(
                     nn.LayerNorm(1024),
                     nn.Dropout(0.5),
@@ -141,7 +144,10 @@ class MultiVASNet(nn.Module):
         x = x.expand(*x.shape)
         y, att_weights_ = self.attn(x,x,x,need_weights=True)
         y = y + x
-        y = self.fc(y)
+        if self.use_extra_linear:
+            y = self.extra_linear(self.fc(y))
+        else:
+            y = self.fc(y)
         return y.view(1,-1),att_weights_
 
 class MultiVASNetWithPageRank(nn.Module):
