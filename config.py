@@ -25,7 +25,7 @@ class HParameters:
         self.lr_epochs = [0]
         self.lr = [0.001]
 
-        self.epochs_max = 500
+        self.epochs_max = 300
         self.train_batch_size = 1
         self.train = True
 
