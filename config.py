@@ -18,9 +18,10 @@ class HParameters:
         self.n_heads = 4
         self.crude_early_stopping = True
         self.crude_early_stopping_n = 60
+        self.learning_rate_scheduling = False
 
-        # self.l2_req = 0.00001
-        self.l2_req = 4.192296532832617e-09
+        self.l2_req = 0.00001
+        # self.l2_req = 4.192296532832617e-09
         self.lr_epochs = [0]
         self.lr = [0.001]
 

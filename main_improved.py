@@ -214,7 +214,8 @@ class AONet:
 
         parameters = filter(lambda p: p.requires_grad, self.model.parameters())
         self.optimizer = torch.optim.Adam(parameters, lr=self.hps.lr[0], weight_decay=self.hps.l2_req)
-        self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer)
+        if self.hps.learning_rate_scheduling:
+            self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer)
 
         print("Starting training...")
 
@@ -257,7 +258,10 @@ class AONet:
                 loss = loss + loss_att
                 self.optimizer.zero_grad()
                 loss.backward()
-                self.optimizer.step()
+
+                if self.hps.learning_rate_scheduling:
+                    self.optimizer.step()
+
                 avg_loss.append([float(loss), float(loss_att)])
 
             # Evaluate test dataset
@@ -498,6 +502,8 @@ if __name__ == "__main__":
     parser.add_argument('-m', '--model-type', default='base-attention',choices=['base-attention','concatenated-attention','pagerank'])
     parser.add_argument('-e', '--crude-early-stopping',action='store_false')
     parser.add_argument('-c', '--cuda-device', type=int, default=1)
+    parser.add_argument('-s', '--learning-rate-scheduling', action='store_false')
+
     args = parser.parse_args()
 
     # MAIN
