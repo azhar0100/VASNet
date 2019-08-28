@@ -116,19 +116,19 @@ class VASNet(nn.Module):
 class MultiVASNet(nn.Module):
     "This Model uses the default torch attention layers instead of using self made layers"
 
-    def __init__(self,n_heads=4):
+    def __init__(self,n_heads=4,second_layer_dim=1024):
         super(MultiVASNet,self).__init__()
         self.attn = nn.MultiheadAttention(1024,n_heads,dropout=0.4)
         self.drop = nn.Dropout(0.5)
         self.fc = nn.Sequential(
                     nn.LayerNorm(1024),
                     nn.Dropout(0.5),
-                    nn.Linear(1024,512),
+                    nn.Linear(1024,second_layer_dim),
                     nn.ReLU(),
                     nn.Dropout(0.5),
-                    nn.LayerNorm(512),
+                    nn.LayerNorm(second_layer_dim),
                     nn.Dropout(0.5),
-                    nn.Linear(512,1),
+                    nn.Linear(second_layer_dim,1),
                     nn.Sigmoid()
                     )
 
@@ -142,6 +142,48 @@ class MultiVASNet(nn.Module):
         y = y + x
         y = self.fc(y)
         return y.view(1,-1),att_weights_
+
+class MultiVASNetWithPageRank(nn.Module):
+    def __init__(self,n_heads=4,second_layer_dim=1024):
+        super(MultiVASNet,self).__init__()
+        second_layer_dim += 1
+        self.attn = nn.MultiheadAttention(1024,n_heads,dropout=0.4)
+        self.drop = nn.Dropout(0.5)
+        self.fc = nn.Sequential(
+                    nn.LayerNorm(1024),
+                    nn.Dropout(0.5),
+                    nn.Linear(1024,second_layer_dim),
+                    nn.ReLU(),
+                    nn.Dropout(0.5),
+                    nn.LayerNorm(second_layer_dim),
+                    nn.Dropout(0.5),
+                    nn.Linear(second_layer_dim,1),
+                    nn.Sigmoid()
+                    )
+
+    def pagerank(self,M,d=0.25,v_quadratic_error=1e-4):
+        N = M.shape[1]
+        v = torch.random.rand(N, 1)
+        v = v / torch.norm(v, 1)
+        last_v = torch.ones((N, 1), dtype=np.float32) * 100
+
+        while torch.norm(v - last_v, 2) > eps:
+            last_v = v
+            v = d * torch.matmul(M, v) + (1 - d) / N
+        return v
+
+    def forward(self,x,seq_len):
+        m = x.shape[2] # Feature size
+
+        # Place the video frames to the batch dimension to allow for batch arithm. operations.
+        # Assumes input batch size = 1.
+        x = x.expand(*x.shape)
+        y, att_weights_ = self.attn(x,x,x,need_weights=True)
+        p = self.pagerank(att_weights_)
+        y = y + x
+        y = self.fc(y)
+        return y.view(1,-1),att_weights_
+
 
 class CatMultiVASNet(nn.Module):
     def __init__(self,n_heads=4):
