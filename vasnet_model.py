@@ -123,7 +123,7 @@ class MultiVASNet(nn.Module):
         self.drop = nn.Dropout(0.5)
         self.use_extra_linear = use_extra_linear
         if use_extra_linear:
-            self.extra_linear = nn.Linear(1024,1024,bias=False)
+            self.extra_linear = nn.Linear(in_features=1024,out_features=1024,bias=False)
         self.fc = nn.Sequential(
                     nn.LayerNorm(1024),
                     nn.Dropout(0.5),
