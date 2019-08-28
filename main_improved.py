@@ -159,7 +159,7 @@ class AONet:
         if self.hps.model_type == 'original-attention':
             self.model = VASNet()
         elif self.hps.model_type == 'base-attention':
-            self.model = MultiVASNet(self.hps.n_heads,self.hps.use_extra_linear)
+            self.model = MultiVASNet(self.hps.n_heads,use_extra_linear=self.hps.use_extra_linear)
         elif self.hps.model_type == 'concatenated-attention':
             self.model = CatMultiVASNet(self.hps.n_heads)
         elif self.hps.model_type == 'pagerank':
