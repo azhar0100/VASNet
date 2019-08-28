@@ -182,8 +182,6 @@ class MultiVASNetWithPageRank(nn.Module):
         y, att_weights_ = self.attn(x,x,x,need_weights=True)
         p = self.pagerank(att_weights_).permute(1,0,2)
         y = y + x
-        print("y shape = {} , p shape = {}".format(y.shape,p.shape))
-        print(torch.cat((p,y),2).shape)
         y = self.fc(y)
         return y.view(1,-1),att_weights_
 
