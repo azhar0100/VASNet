@@ -259,14 +259,15 @@ class AONet:
                 self.optimizer.zero_grad()
                 loss.backward()
 
-                if self.hps.learning_rate_scheduling:
-                    self.optimizer.step()
+
+                self.optimizer.step()
 
                 avg_loss.append([float(loss), float(loss_att)])
 
             # Evaluate test dataset
             val_fscore, video_scores,validation_loss = self.eval(self.test_keys)
-            self.scheduler.step(validation_loss)
+            if self.hps.learning_rate_scheduling:
+                self.scheduler.step(validation_loss)
             if max_val_fscore < val_fscore:
                 max_val_fscore = val_fscore
                 max_val_fscore_epoch = epoch
