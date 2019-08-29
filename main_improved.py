@@ -21,7 +21,7 @@ from config import  *
 from sys_utils import *
 from vsum_tools import  *
 from vasnet_model import  *
-writer = SummaryWriter()
+
 
 
 def weights_init(m):
@@ -267,11 +267,11 @@ class AONet:
 
                 avg_loss.append([float(loss), float(loss_att)])
 
-            writer.add_scalar(self.hps.output_dir + '/Train_loss', avg_loss[-1][0], i)
+            self.hps.writer.add_scalar(self.hps.output_dir + '/Train_loss', avg_loss[-1][0], i)
             # Evaluate test dataset
             val_fscore, video_scores,validation_loss = self.eval(self.test_keys)
-            writer.add_scalar(self.hps.output_dir + '/Valid_loss', validation_loss, i)
-            writer.add_scalar(self.hps.output_dir + '/F_score', val_fscore, i)
+            self.hps.writer.add_scalar(self.hps.output_dir + '/Valid_loss', validation_loss, i)
+            self.hps.writer.add_scalar(self.hps.output_dir + '/F_score', val_fscore, i)
             if self.hps.learning_rate_scheduling:
                 self.scheduler.step(validation_loss)
             if max_val_fscore < val_fscore:
@@ -525,6 +525,9 @@ if __name__ == "__main__":
         d['use_cuda'] = True
     hps.load_from_args(d)
 
+    hps.writer = SummaryWriter(logdir=hps.output_dir)
+
+
     print("Parameters:")
     print("----------------------------------------------------------------------")
     print(hps)
@@ -540,5 +543,5 @@ if __name__ == "__main__":
         print("\nFinal Results:")
         print_table(results)
 
-    writer.close()
+    hps.writer.close()
     sys.exit(0)
