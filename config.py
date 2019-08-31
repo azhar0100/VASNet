@@ -38,13 +38,15 @@ class HParameters:
                        'datasets/eccv16_dataset_ovp_google_pool5.h5',
                        'datasets/eccv16_dataset_youtube_google_pool5.h5']
 
-        self.splits = ['splits/tvsum_splits.json',
-                        'splits/summe_splits.json']
+        self.splits = ['splits/tvsum_splits.json']
+        # self.splits = ['splits/tvsum_splits.json',
+                        # 'splits/summe_splits.json']
         # self.splits = ['splits/summe_splits.json']
 
         # self.splits += ['splits/summe_aug_splits.json']
-        self.splits += ['splits/tvsum_aug_splits.json',
-                        'splits/summe_aug_splits.json']
+        self.splits += ['splits/tvsum_aug_splits.json']
+        # self.splits += ['splits/tvsum_aug_splits.json',
+                        # 'splits/summe_aug_splits.json']
 
         return
 
