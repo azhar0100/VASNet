@@ -119,7 +119,7 @@ class MultiVASNet(nn.Module):
 
     def __init__(self,n_heads=4,second_layer_dim=1024,use_extra_linear = True):
         super(MultiVASNet,self).__init__()
-        self.attn = nn.MultiheadAttention(1024,n_heads,dropout=0.4)
+        self.attn = nn.MultiheadAttention(1024,n_heads,dropout=0.5)
         self.drop = nn.Dropout(0.5)
         self.use_extra_linear = use_extra_linear
         if use_extra_linear:
