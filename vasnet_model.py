@@ -142,6 +142,7 @@ class MultiVASNet(nn.Module):
         # Place the video frames to the batch dimension to allow for batch arithm. operations.
         # Assumes input batch size = 1.
         x = x.expand(*x.shape)
+        assert not torch.equal(0.06*x,x)
         y, att_weights_ = self.attn(0.06*x,x,x,need_weights=True)
         y = y + x
         if self.use_extra_linear:
@@ -187,6 +188,7 @@ class MultiVASNetWithPageRank(nn.Module):
         # Place the video frames to the batch dimension to allow for batch arithm. operations.
         # Assumes input batch size = 1.
         x = x.expand(*x.shape)
+        assert not torch.equal(0.06*x,x)
         y, att_weights_ = self.attn(0.06*x,x,x,need_weights=True)
         p = self.pagerank(att_weights_).permute(1,0,2)
         y = y + x
