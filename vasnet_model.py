@@ -142,7 +142,7 @@ class MultiVASNet(nn.Module):
         # Place the video frames to the batch dimension to allow for batch arithm. operations.
         # Assumes input batch size = 1.
         x = x.expand(*x.shape)
-        y, att_weights_ = self.attn(x,x,x,need_weights=True)
+        y, att_weights_ = self.attn(0.06*x,x,x,need_weights=True)
         y = y + x
         if self.use_extra_linear:
             y = (self.fc(self.extra_linear(y)))
